@@ -114,6 +114,32 @@ setDataSource(createBleDataSource({ deviceId })) // ไม่ต้องแก�
 
 ---
 
+## การ deploy ขึ้น GitHub Pages
+
+`.github/workflows/deploy-pages.yml` จะ build แล้ว publish โฟลเดอร์ `dist/` ให้อัตโนมัติทุกครั้งที่ push
+
+**ต้องตั้งค่าครั้งเดียวก่อน:** ไปที่ **Settings → Pages → Build and deployment → Source** แล้วเลือก **GitHub Actions**
+
+ถ้าตั้งเป็น "Deploy from a branch" GitHub Pages จะเสิร์ฟไฟล์ใน repo ตามที่เป็น ซึ่งคือ `index.html` ของ Vite
+ที่ยังไม่ได้ build (ชี้ไปที่ `/src/main.jsx` ซึ่งเป็น JSX ดิบที่เบราว์เซอร์รันไม่ได้) ผลคือ **หน้าขาว** —
+HTML โหลดได้แต่แอปไม่ render
+
+### เรื่อง base path
+
+`base: './'` ใน `vite.config.js` ถูกต้องแล้วสำหรับ `user7468-available.github.io/thermo/`
+asset จะถูกอ้างแบบ relative (`./assets/...`) ซึ่งแปลงเป็น `/thermo/assets/...` ให้เอง
+**ไม่ควร** ฮาร์ดโค้ดเป็น `base: '/thermo/'` เพราะจะพังเวลา `npm run preview` และเวลาเอาไป host ที่อื่น
+
+ทดสอบ build แบบ subfolder ก่อน deploy ได้ด้วย:
+
+```bash
+npm run build
+mkdir -p /tmp/pages/thermo && cp -r dist/. /tmp/pages/thermo/
+cd /tmp/pages && python3 -m http.server 8080   # เปิด http://localhost:8080/thermo/
+```
+
+---
+
 ## เคล็ดลับการอัดคลิปสาธิต
 
 เปิดแอปบนมือถือ → กดปุ่มลอย **"สาธิต"** → กดลูกศร ▾ เพื่อย่อแผงควบคุม (จะได้เห็นข้อมูลเต็มจอ)
