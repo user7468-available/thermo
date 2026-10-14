@@ -118,8 +118,11 @@ setDataSource(createBleDataSource({ deviceId })) // ไม่ต้องแก�
 
 `.github/workflows/deploy-pages.yml` จะ build แล้ว publish โฟลเดอร์ `dist/` ให้อัตโนมัติทุกครั้งที่ push
 
-workflow จะตั้งค่า **Settings → Pages → Source = GitHub Actions** ให้เองผ่าน `configure-pages` (`enablement: true`)
-ถ้าสิทธิ์ไม่พอให้ตั้งเองที่ **Settings → Pages → Build and deployment → Source → GitHub Actions**
+**ต้องตั้งค่าด้วยมือครั้งเดียว:** **Settings → Pages → Build and deployment → Source → GitHub Actions**
+
+`configure-pages` ใน workflow ใส่ `enablement: true` ไว้ แต่ตัวเลือกนี้สร้าง Pages site ให้เฉพาะตอนที่
+*ยังไม่เคยเปิด* Pages เท่านั้น — ถ้าเปิดไว้แบบ "Deploy from a branch" อยู่แล้ว มันจะไม่เปลี่ยนให้
+(ทดสอบแล้ว: งาน `pages build and deployment` ยังรันต่อหลังจากใส่ option นี้)
 
 ถ้าตั้งเป็น "Deploy from a branch" GitHub Pages จะเสิร์ฟไฟล์ใน repo ตามที่เป็น ซึ่งคือ `index.html` ของ Vite
 ที่ยังไม่ได้ build (ชี้ไปที่ `/src/main.jsx` ซึ่งเป็น JSX ดิบที่เบราว์เซอร์รันไม่ได้) ผลคือ **หน้าขาว** —
