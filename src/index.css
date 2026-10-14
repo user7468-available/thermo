@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-brand-50 font-sans text-ink antialiased;
+    /* The prototype is framed as a 390x844 phone on desktop, full-bleed on mobile. */
+    overscroll-behavior-y: none;
+  }
+
+  /* Larger default type: primary users are elderly patients. */
+  :root {
+    font-size: 17px;
+  }
+
+  button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-3xl border border-brand-100 bg-white p-5 shadow-card;
+  }
+
+  /* 56px minimum tap target throughout. */
+  .tap {
+    @apply min-h-[56px] select-none transition-all duration-200 ease-medical active:scale-[0.97];
+  }
+
+  .btn-primary {
+    @apply tap flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-500 px-5 text-[1.15rem] font-medium text-white shadow-lift;
+  }
+
+  .btn-ghost {
+    @apply tap flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-brand-200 bg-white px-5 text-[1.05rem] font-medium text-brand-600;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.75;
+  }
+  70% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.42s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes alert-in {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-alert-in {
+  animation: alert-in 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
