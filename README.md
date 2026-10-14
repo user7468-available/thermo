@@ -129,6 +129,13 @@ HTML โหลดได้แต่แอปไม่ render
 จะทำงานคู่ขนานกับ workflow นี้ทุกครั้งที่ push และตัวที่ **เสร็จทีหลังจะทับ** — ซึ่งมักเป็นตัวที่เสิร์ฟ
 source ที่ยังไม่ได้ build จึงต้องให้ Source เป็น GitHub Actions เท่านั้น
 
+### ถ้าหน้ายังขาวอยู่
+
+ดูที่แท็บ **Actions** ว่ามี workflow ชื่อ **"pages build and deployment"** รันคู่กับ **"Deploy to GitHub Pages"**
+ในคอมมิตเดียวกันหรือไม่ ถ้ามี แปลว่า Source ยังเป็น "Deploy from a branch" อยู่ — ทั้งสองตัวจะ deploy แข่งกัน
+และ **ตัวที่เสร็จทีหลังชนะ** ให้ไปเปลี่ยน Source เป็น **GitHub Actions** ด้วยมือ แล้วกด Re-run workflow
+เมื่อตั้งถูกแล้ว จะเหลือ workflow เดียวที่รันต่อ push
+
 ### เรื่อง base path
 
 `base: './'` ใน `vite.config.js` ถูกต้องแล้วสำหรับ `user7468-available.github.io/thermo/`
