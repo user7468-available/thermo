@@ -118,11 +118,16 @@ setDataSource(createBleDataSource({ deviceId })) // ไม่ต้องแก�
 
 `.github/workflows/deploy-pages.yml` จะ build แล้ว publish โฟลเดอร์ `dist/` ให้อัตโนมัติทุกครั้งที่ push
 
-**ต้องตั้งค่าครั้งเดียวก่อน:** ไปที่ **Settings → Pages → Build and deployment → Source** แล้วเลือก **GitHub Actions**
+workflow จะตั้งค่า **Settings → Pages → Source = GitHub Actions** ให้เองผ่าน `configure-pages` (`enablement: true`)
+ถ้าสิทธิ์ไม่พอให้ตั้งเองที่ **Settings → Pages → Build and deployment → Source → GitHub Actions**
 
 ถ้าตั้งเป็น "Deploy from a branch" GitHub Pages จะเสิร์ฟไฟล์ใน repo ตามที่เป็น ซึ่งคือ `index.html` ของ Vite
 ที่ยังไม่ได้ build (ชี้ไปที่ `/src/main.jsx` ซึ่งเป็น JSX ดิบที่เบราว์เซอร์รันไม่ได้) ผลคือ **หน้าขาว** —
 HTML โหลดได้แต่แอปไม่ render
+
+ที่สำคัญกว่านั้น: ถ้ายังเป็น "Deploy from a branch" อยู่ งาน `pages build and deployment` ของ GitHub
+จะทำงานคู่ขนานกับ workflow นี้ทุกครั้งที่ push และตัวที่ **เสร็จทีหลังจะทับ** — ซึ่งมักเป็นตัวที่เสิร์ฟ
+source ที่ยังไม่ได้ build จึงต้องให้ Source เป็น GitHub Actions เท่านั้น
 
 ### เรื่อง base path
 

@@ -35,7 +35,12 @@ jobs:
 
       - run: npm run build
 
+      # enablement: true switches Settings → Pages → Source to "GitHub Actions".
+      # Without it the legacy "pages build and deployment" job keeps firing on
+      # every push and races this one, publishing the unbuilt source instead.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
